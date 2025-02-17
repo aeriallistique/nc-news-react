@@ -21,10 +21,10 @@ const ArticlesList = () => {
 
 
   return (
-    <main className='main-content w-11/12 sm:w-12/12 h-full m-auto text-center grid grid-cols-1 lg:grid-cols-2 gap-4'>
+    <main className='main-content w-11/12 sm:w-12/12 h-full m-auto mb-4 text-center grid grid-cols-1 lg:grid-cols-2 gap-4'>
       {isError ? <ErrorMessage message={isError} /> : (
         articles ? articles.map(article => {
-          return <ArticleCard article={article} />;
+          return <ArticleCard article={article} hasBody={false} />;
         }) : <Spinner />)}
     </main>
   );
