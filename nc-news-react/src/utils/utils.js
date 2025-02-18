@@ -10,10 +10,22 @@ export const getArticles = (path) => {
   });
 };
 
+export const getArticleComments = (path) => {
+  return apiUrl.get(path).then(resp => resp.data.comments);
+};
+
+export const getUsers = () => {
+  return apiUrl.get(`/users`).then(resp => resp.data);
+};
+
 export const patchVotes = (path, patchObj) => {
   return apiUrl.patch(path, patchObj).then(resp => {
     return resp.data;
   });
+};
+
+export const postComment = (path, postObj) => {
+  return apiUrl.post(path, postObj);
 };
 
 export const timeAgo = (dateString) => {
