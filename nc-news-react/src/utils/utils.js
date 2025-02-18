@@ -1,3 +1,21 @@
+import axios from 'axios';
+
+const apiUrl = axios.create({
+  baseURL: 'https://andis-news-app.onrender.com/api'
+});
+
+export const getArticles = (path) => {
+  return apiUrl.get(path).then(resp => {
+    return resp.data;
+  });
+};
+
+export const patchVotes = (path, patchObj) => {
+  return apiUrl.patch(path, patchObj).then(resp => {
+    return resp.data;
+  });
+};
+
 export const timeAgo = (dateString) => {
   const date = new Date(dateString);
   const now = new Date();
@@ -21,3 +39,4 @@ export const timeAgo = (dateString) => {
   }
   return "just now";
 };
+

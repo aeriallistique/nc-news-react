@@ -1,16 +1,28 @@
+import { useNavigate } from "react-router-dom";
+import { UserAccount } from "../context/UsersContext";
+import { useContext } from "react";
+
 const Navbar = () => {
+  const nav = useNavigate();
+  const { loggedInUser, setLoggedInUser } = useContext(UserAccount);
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    console.log(`from Nav logo`);
+    nav('/');
+  };
   return (
     <nav className="navbar w-full h-16 bg-red-500 text-white flex flex-row justify-between items-center p-4 mb-2 border border-t-0 rounded-b-lg">
       <a href="#" className="border border-transparent rounded-full h-8 w-8 overflow-hidden">
-        <img className="h-full w-full object-cover" src="https://images.pexels.com/photos/2403392/pexels-photo-2403392.jpeg?w=700&h=700" alt="" />
+        <img className="h-full w-full object-cover" src={`${loggedInUser.avatar_url}`} alt={`${loggedInUser.username}`} />
 
       </a>
-      <div className="">
+      <a href="#" className="" onClick={(e) => { handleLogoClick(e); }}>
         <span className="bg-white rounded-xs text-black p-1">N</span>
         <span className="bg-white rounded-xs text-black p-1 mx-2">N</span>
         <span className="bg-white rounded-xs text-black p-1">C</span>
 
-      </div>
+      </a>
       <a href="">Logout</a>
     </nav>
   );

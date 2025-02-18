@@ -29,7 +29,7 @@ const CommentsPage = () => {
     <div className="main-container w-11/12 h-auto m-auto">
       <Navbar />
       <h2 className="pr-4 mt-4 mr-auto">Comments:</h2>
-      <main className="flex flex-col justify-center items-center lg:grid lg:grid-cols-2">
+      <main className="flex flex-col justify-center items-center lg:grid lg:grid-cols-2 lg:place-items-center">
 
         {comments ? comments.map(comment => {
           let userAvatar = '';
