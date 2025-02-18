@@ -6,35 +6,38 @@ import Spinner from "../components/Spinner";
 import CommentCard from "../components/CommentCard";
 import { UsersAccounts } from "../context/UsersContext";
 import Footer from "../components/Footer";
-
+import PostComment from "../components/PostComment";
 
 const CommentsPage = () => {
   const location = useLocation();
-  const article_id = location.pathname;
+  const articleIDwComment = location.pathname; //this has forward slash in it
+  const articleID = articleIDwComment.split('/')[1];
+
   const [comments, setComments] = useState(null);
   const { usersAccounts, setUsersAccounts } = useContext(UsersAccounts);
 
   useEffect(() => {
-    axios.get(`https://andis-news-app.onrender.com/api/articles${article_id}`)
+    axios.get(`https://andis-news-app.onrender.com/api/articles${articleIDwComment}`)
       .then(resp => {
-        console.log(resp.data.comments);
         setComments(resp.data.comments);
       });
     axios.get(`https://andis-news-app.onrender.com/api/users`).then(resp => {
-      console.log(resp.data);
       setUsersAccounts(resp.data);
     });
   }, []);
+
+
   return (<>
     <div className="main-container w-11/12 h-auto m-auto">
       <Navbar />
-      <h2 className="pr-4 mt-4 mr-auto">Comments:</h2>
+      <PostComment articleID={articleID} />
+
       <main className="flex flex-col justify-center items-center lg:grid lg:grid-cols-2 lg:place-items-center">
 
         {comments ? comments.map(comment => {
           let userAvatar = '';
-          for (const obj of usersAccounts) {
-            if (obj.username === comment.author) { userAvatar = obj.avatar_url; }
+          for (const user of usersAccounts) {
+            if (user.username === comment.author) { userAvatar = user.avatar_url; }
           }
           return <CommentCard comment={comment} userAvatar={userAvatar} />;
         }) : <Spinner />}

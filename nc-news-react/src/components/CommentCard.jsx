@@ -26,7 +26,7 @@ const CommentCard = ({ comment, userAvatar }) => {
         <button className="cursor-pointer group">
           <svg className='w-8 h-8 transition-all duration-200 transform group-hover:scale-110' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 21s-6.5-4.33-10-9.5C-1.5 6.67 2 2 6.5 2 9 2 12 5 12 5s3-3 5.5-3C22 2 25.5 6.67 22 11.5c-3.5 5.17-10 9.5-10 9.5z" fill="red" className="transition-colors duration-200 group-hover:fill-red-700" />
-            <text x="50%" y="55%" fontSize="6" fontFamily="Arial" fontWeight="bold" fill="white" textAnchor="middle" alignmentBaseline="middle">{comment.votes}</text>
+            <text x="50%" y="60%" fontSize="10" fontFamily="Arial" fontWeight="bold" fill="white" textAnchor="middle" alignmentBaseline="middle">{comment.votes}</text>
           </svg>
         </button>
       </div>

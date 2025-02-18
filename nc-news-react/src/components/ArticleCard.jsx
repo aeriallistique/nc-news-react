@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { patchVotes } from "../utils/utils";
-import axios from 'axios';
 import ATagVotes from "./ATagVotes";
 import ATagSeeComments from "./ATagSeeComments";
 import ErrorMessage from "./ErrorMessage";
