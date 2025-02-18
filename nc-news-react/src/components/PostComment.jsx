@@ -2,11 +2,13 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { UserAccount } from "../context/UsersContext";
 import ErrorMessage from "./ErrorMessage";
+import { postComment } from "../utils/utils";
 
-const PostComment = ({ articleID }) => {
+const PostComment = ({ articleID, setHasCommentPosted }) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isError, setIsError] = useState(null);
   const [textareaInput, setTextareaInput] = useState('');
+
   const { loggedInUser } = useContext(UserAccount);
 
 
@@ -16,17 +18,18 @@ const PostComment = ({ articleID }) => {
     e.preventDefault();
     setTextareaInput('');
     setIsFormVisible(false);
-    axios.post(`https://andis-news-app.onrender.com/api/articles/${articleID}/comments`, { username: loggedInUser.username, body: textareaInput })
+    postComment(`/articles/${articleID}/comments`, { username: loggedInUser.username, body: textareaInput })
+      .then(resp => setHasCommentPosted(resp.data.comment))
       .catch(err => setIsError(err.message));
   };
 
 
   if (isError) { return <ErrorMessage message={isError} />; }
   return (
-    <header className={!isFormVisible ? "w-full mt-4 flex flew-row justify-around items-center relative lg:flex-col" : " flex flex-col items-center border-amber-950"}>
+    <header className={!isFormVisible ? "w-full mt-4 mb-2 flex flew-row justify-around items-center relative lg:flex-col" : " flex flex-col items-center border-amber-950"}>
       <h2 className="">Comments: </h2>
 
-      <div className={isFormVisible ? "text-center mt-4" : ""} >
+      <div className={isFormVisible ? "text-center mt-4 " : ""} >
         <button
           className="bg-red-100 p-0.5 cursor-pointer hover:bg-red-500 transition-all duration-150 hover:text-white rounded-md"
           onClick={(e) => { handleFormvVisibility(e); }}
@@ -56,7 +59,6 @@ const PostComment = ({ articleID }) => {
             disabled={textareaInput.length === 0 ? true : false}
             onClick={(e) => { handlePostComment(e); }}
             className="bg-red-500 p-1 text-white rounded-md cursor-pointer disabled:bg-red-200"
-
           >
             Post Comment
           </button>
