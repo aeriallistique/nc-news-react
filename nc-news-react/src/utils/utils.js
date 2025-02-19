@@ -18,6 +18,10 @@ export const getUsers = () => {
   return apiUrl.get(`/users`).then(resp => resp.data);
 };
 
+export const getTopics = () => {
+  return apiUrl.get('/topics').then(resp => resp.data.topics);
+};
+
 export const patchVotes = (path, patchObj) => {
   return apiUrl.patch(path, patchObj).then(resp => {
     return resp.data;
