@@ -18,6 +18,7 @@ const PostComment = ({ articleID, setHasCommentPosted }) => {
     e.preventDefault();
     setTextareaInput('');
     setIsFormVisible(false);
+    setHasCommentPosted(true);
     postComment(`/articles/${articleID}/comments`, { username: loggedInUser.username, body: textareaInput })
       .then(resp => setHasCommentPosted(resp.data.comment))
       .catch(err => setIsError(err.message));
@@ -44,7 +45,7 @@ const PostComment = ({ articleID, setHasCommentPosted }) => {
             <path d="M6 9l6 6 6-6" />
           </svg>
         </button>
-        <form action="submit" className={!isFormVisible ? "hidden" : "h-64 p-8 z-50 bg-white border border-orange-400"}>
+        <form action="submit" className={!isFormVisible ? "hidden" : "h-64 p-8 z-50 bg-white "}>
 
           <textarea
             value={textareaInput}
@@ -53,7 +54,7 @@ const PostComment = ({ articleID, setHasCommentPosted }) => {
             col="10"
             rows={5}
             placeholder="Your Comment here..."
-            className="w-full border border-transparent  border-b-red-500 p-1 mb-1"
+            className="w-full border border-transparent  border-b-red-500 p-1 mb-1 focus:outline-none focus:ring-1 focus:ring-red-400"
           />
           <button
             disabled={textareaInput.length === 0 ? true : false}

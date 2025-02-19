@@ -28,6 +28,10 @@ export const postComment = (path, postObj) => {
   return apiUrl.post(path, postObj);
 };
 
+export const deleteComment = (path) => {
+  return apiUrl.delete(path);
+};
+
 export const timeAgo = (dateString) => {
   const date = new Date(dateString);
   const now = new Date();
