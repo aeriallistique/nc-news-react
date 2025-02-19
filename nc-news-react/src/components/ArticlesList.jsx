@@ -1,28 +1,40 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import ArticleCard from './ArticleCard';
 import Spinner from './Spinner';
 import ErrorMessage from './ErrorMessage';
-import { getArticles } from '../utils/utils';
 
-const ArticlesList = () => {
-  const [articles, setArticles] = useState(null);
-  const [isError, setIsError] = useState(false);
+const ArticlesList = ({ topics, articles, isError, setTopic }) => {
+  const nav = useNavigate();
 
-  useEffect(() => {
-    getArticles('/articles?limit=10&p=1')
-      .then(resp => setArticles(resp))
-      .catch((err) => setIsError(err.message));
-  }, []);
+  const handleTopicSelection = (e) => {
+    if (setTopic) { setTopic(e.target.value); }
+    nav(`/topic/${e.target.value}`);
+  };
 
 
-  return (
+  return (<>
+    <select
+      className='border border-red-300 bg-red-300 rounded-lg block mx-auto mb-2 p-2 cursor-pointer hover:bg-red-500 hover:text-white'>
+      <option
+        value="choose">
+        Please choose a Topic
+      </option>
+      {topics?.map(topic => <option
+        key={topic.slug}
+        onClick={(e) => { handleTopicSelection(e); }}
+        value={topic.slug}>
+        {topic.slug}
+      </option>
+      )}
+    </select>
     <main className='main-content w-11/12 sm:w-12/12 h-full m-auto mb-4 text-center grid grid-cols-1 lg:grid-cols-2 gap-4'>
+
       {isError ? <ErrorMessage message={isError} /> : (
         articles ? articles.map(article => {
           return <ArticleCard article={article} />;
         }) : <Spinner />)}
     </main>
+  </>
   );
 };
 
