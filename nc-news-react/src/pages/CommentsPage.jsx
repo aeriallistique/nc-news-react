@@ -4,7 +4,7 @@ import { getArticleComments, getUsers } from "../utils/utils";
 import { useLocation } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import CommentCard from "../components/CommentCard";
-import { UsersAccounts } from "../context/UsersContext";
+import { UsersAccounts, UserAccount } from "../context/UsersContext";
 import Footer from "../components/Footer";
 import PostComment from "../components/PostComment";
 
@@ -15,7 +15,9 @@ const CommentsPage = () => {
 
   const [comments, setComments] = useState(null);
   const [hasCommentPosted, setHasCommentPosted] = useState(null);
+  const [hasCommentDeleted, setHasCommentDeleted] = useState(false);
   const { usersAccounts, setUsersAccounts } = useContext(UsersAccounts);
+  const { loggedInUser } = useContext(UserAccount);
   const [showSuccessSpan, setShowSuccessSpan] = useState(false);
 
   useEffect(() => {
@@ -25,11 +27,10 @@ const CommentsPage = () => {
   }, []);
 
   useEffect(() => {
+    setHasCommentDeleted(false);
+    getArticleComments(`/articles${articleIDwComment}`).then(resp => setComments(resp));
     displaySuccesSpan();
-    getArticleComments(`/articles${articleIDwComment}`).then(resp => {
-      setComments(resp);
-    });
-  }, [hasCommentPosted]);
+  }, [hasCommentPosted, hasCommentDeleted]);
 
   const displaySuccesSpan = () => {
     if (hasCommentPosted) {
@@ -39,6 +40,7 @@ const CommentsPage = () => {
       }, 1500);
     }
   };
+
 
 
   return (<>
@@ -54,7 +56,12 @@ const CommentsPage = () => {
           for (const user of usersAccounts) {
             if (user.username === comment.author) { userAvatar = user.avatar_url; }
           }
-          return <CommentCard comment={comment} userAvatar={userAvatar} />;
+          return <CommentCard
+            key={comment.comment_id}
+            comment={comment}
+            userAvatar={userAvatar}
+            loggedInUser={loggedInUser}
+            setHasCommentDeleted={setHasCommentDeleted} />;
         }) : <Spinner />}
       </main>
     </div>
