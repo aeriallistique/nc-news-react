@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { patchVotes } from "../utils/utils";
 import ATagVotes from "./ATagVotes";
@@ -37,13 +37,13 @@ const ArticleCard = ({ article }) => {
   if (isError) { return <ErrorMessage message={'Your vote was not registered.'} />; }
   return (
     <div key={`${article.article_id}${article.created_at}`} className="w-10/12 m-auto bg-white border border-gray-200 rounded-lg shadow-sm">
-      <a href="#">
+      <Link to={`${article.article_id}`} key={article.article_id}>
         <img className="rounded-t-lg m-auto" src={article.article_img_url} alt={article.title} />
-      </a>
+      </Link>
       <div className="p-5">
-        <a href="#">
+        <Link to={`${article.article_id}`} key={article.article_id}>
           <h5 className="mb-4 text-xl font-bold tracking-tight text-gray-900">{article.title}</h5>
-        </a>
+        </Link>
         {article.body ? <p className="my-6 px-4">{article.body}</p> : null}
         <div className="container w-10/12 flex justify-between items-center m-auto">
           <a href="#" className='inline-flex items-center text-red-600 text-xs'>{article.topic.toUpperCase() || 'General'}

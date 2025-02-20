@@ -31,7 +31,7 @@ const ArticlesList = ({ topics, articles, isError, setTopic }) => {
 
       {isError ? <ErrorMessage message={isError} /> : (
         articles ? articles.map(article => {
-          return <ArticleCard article={article} />;
+          return <ArticleCard key={article.article_id} article={article} />;
         }) : <Spinner />)}
     </main>
   </>
