@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { patchVotes } from "../utils/utils";
 import ATagVotes from "./ATagVotes";
 import ATagSeeComments from "./ATagSeeComments";
@@ -10,6 +10,10 @@ const ArticleCard = ({ article }) => {
   const [isError, setIsError] = useState(false);
   const [userVoted, setUserVoted] = useState(false);
 
+  useEffect(() => {
+    setVotes(article.votes);
+  }, [article.votes]);
+
   const nav = useNavigate();
   const handleSeeComments = (e) => {
     e.preventDefault();
@@ -18,7 +22,8 @@ const ArticleCard = ({ article }) => {
 
   const handleVote = (e) => {
     e.preventDefault();
-    const voteCount = !userVoted ? +1 : -1;
+    const voteCount = userVoted ? -1 : +1;
+    setUserVoted(curr => !curr);
     setVotes((currVotes) => currVotes + voteCount);
 
     patchVotes(`/articles/${article.article_id}`, { inc_votes: voteCount })
@@ -45,7 +50,7 @@ const ArticleCard = ({ article }) => {
           </a>
 
           <ATagSeeComments onClickFunc={handleSeeComments} text={`${article.comment_count}`} />
-          <ATagVotes onClickFunc={handleVote} votes={votes} fill={userVoted} />
+          <ATagVotes onClickFunc={handleVote} votes={votes || article.votes} fill={userVoted} />
         </div>
       </div>
     </div>
