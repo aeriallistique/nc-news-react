@@ -8,13 +8,12 @@ const Navbar = () => {
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    console.log(`from Nav logo`);
     nav('/');
   };
   return (
     <nav className="navbar w-full h-16 bg-red-500 text-white flex flex-row justify-between items-center p-4 mb-2 border border-t-0 rounded-b-lg">
-      <a href="#" className="border border-transparent rounded-full h-8 w-8 overflow-hidden">
-        <img className="h-full w-full object-cover" src={`${loggedInUser.avatar_url}`} alt={`${loggedInUser.username}`} />
+      <a href="#" className="border border-gray-300 bg-red-200 rounded-full h-8 w-8 overflow-hidden">
+        <img className="h-full w-full object-contain" src={`${loggedInUser.avatar_url}`} alt={`${loggedInUser.username}`} />
 
       </a>
       <a href="#" className="" onClick={(e) => { handleLogoClick(e); }}>

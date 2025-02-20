@@ -10,8 +10,7 @@ const CommentCard = ({ comment, userAvatar, loggedInUser, setHasCommentDeleted }
     return (<button
       onClick={(e) => { handleDeleteClick(e); }}
       value={comment.comment_id}
-      className="text-xs font-medium cursor-pointer px-2 bg-red-400 text-white hover:underline hover:bg-red-500 rounded-sm transition-all duration-150 disabled:bg-red-200 disabled:cursor-not-allowed"
-    >
+      className="text-xs font-medium cursor-pointer px-2 bg-red-400 text-white hover:underline hover:bg-red-500 rounded-sm transition-all duration-150 disabled:bg-red-200 disabled:cursor-not-allowed">
       Delete Comment
     </button>);
   };

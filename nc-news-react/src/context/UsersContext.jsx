@@ -6,7 +6,7 @@ const hardCodedUser = {
   avatar_url: "https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953"
 };
 
-export const UserAccount = createContext(null);
+export const UserAccount = createContext(hardCodedUser);
 
 export const UserAccountProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState(hardCodedUser);

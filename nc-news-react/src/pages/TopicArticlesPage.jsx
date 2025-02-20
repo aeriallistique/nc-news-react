@@ -16,13 +16,16 @@ const TopicArticlesPage = () => {
     getArticles(`/articles?sort_by=topic&topic=${topic}`)
       .then(resp => setArticles(resp.filter(article => article.topic === topic)))
       .catch(err => setIsError(err.message));
+    console.log(articles);
 
   }, [topic]);
 
-  return (<>
+
+
+  return (<div className="w-11/12 mx-auto">
     <Navbar />
     <ArticlesList topics={topics} articles={articles} isError={isError} setTopic={setTopic} />
-  </>
+  </div>
   );
 };
 
