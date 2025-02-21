@@ -4,6 +4,7 @@ import ArticlesPage from './pages/ArticlesPage';
 import SingleArticlePage from './pages/SingleArticlePage';
 import CommentsPage from './pages/CommentsPage';
 import TopicArticlesPage from './pages/TopicArticlesPage';
+import ErrorPage from './pages/ErrorPage';
 import { UsersAccountsProvider, UserAccountProvider } from './context/UsersContext';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='/topic/:slug' element={<TopicArticlesPage />} />
           <Route path='/:article_id' element={<SingleArticlePage />} />
           <Route path='/:article_id/comments' element={<CommentsPage />} />
+          <Route path='*' element={<ErrorPage />} />
 
         </Routes>
       </UsersAccountsProvider>

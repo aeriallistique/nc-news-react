@@ -16,8 +16,6 @@ const TopicArticlesPage = () => {
     getArticles(`/articles?sort_by=topic&topic=${topic}`)
       .then(resp => setArticles(resp.filter(article => article.topic === topic)))
       .catch(err => setIsError(err.message));
-    console.log(articles);
-
   }, [topic]);
 
 

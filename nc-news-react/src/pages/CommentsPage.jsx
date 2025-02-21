@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import Navbar from "../components/Navbar";
 import { getArticleComments, getUsers } from "../utils/utils";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import CommentCard from "../components/CommentCard";
 import { UsersAccounts, UserAccount } from "../context/UsersContext";
@@ -19,9 +19,9 @@ const CommentsPage = () => {
   const { usersAccounts, setUsersAccounts } = useContext(UsersAccounts);
   const { loggedInUser } = useContext(UserAccount);
   const [showSuccessSpan, setShowSuccessSpan] = useState(false);
+  const nav = useNavigate();
 
   useEffect(() => {
-
     getArticleComments(`/articles${articleIDwComment}`).then(resp => setComments(resp));
     getUsers().then(resp => setUsersAccounts(resp));
   }, []);
@@ -46,6 +46,11 @@ const CommentsPage = () => {
   return (<>
     <div className="main-container w-11/12 h-auto m-auto relative">
       <Navbar />
+      <button
+        className="cursor-pointer hover:font-semibold"
+        onClick={() => nav(-1)}>
+        &larr;back
+      </button>
       <span className={showSuccessSpan ? "absolute top-30 lg:top-35 text-black text-2xl font-bold flex items-center justify-center  h-50 w-full bg-green-200 rounded z-50 opacity-80" : "hidden"}>Success !!!</span>
       <PostComment articleID={articleID} setHasCommentPosted={setHasCommentPosted} />
 
