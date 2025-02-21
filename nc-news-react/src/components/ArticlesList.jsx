@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import ArticleCard from './ArticleCard';
 import Spinner from './Spinner';
 import ErrorMessage from './ErrorMessage';

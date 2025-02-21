@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import ArticleCard from "../components/ArticleCard";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/utils";
 import Spinner from "../components/Spinner";

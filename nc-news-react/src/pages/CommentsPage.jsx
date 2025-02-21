@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import Navbar from "../components/Navbar";
 import { getArticleComments, getUsers } from "../utils/utils";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import Spinner from "../components/Spinner";
 import CommentCard from "../components/CommentCard";
 import { UsersAccounts, UserAccount } from "../context/UsersContext";

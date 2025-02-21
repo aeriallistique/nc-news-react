@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import axios from "axios";
+
 import { UserAccount } from "../context/UsersContext";
 import ErrorMessage from "./ErrorMessage";
 import { postComment } from "../utils/utils";

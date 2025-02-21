@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { getArticles, getTopics } from "../utils/utils";
 import ArticlesList from "../components/ArticlesList";
