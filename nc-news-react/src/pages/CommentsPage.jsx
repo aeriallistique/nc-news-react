@@ -45,7 +45,6 @@ const CommentsPage = () => {
 
   return (<>
     <div className="main-container w-11/12 h-auto m-auto relative">
-      <Navbar />
       <button
         className="cursor-pointer hover:font-semibold"
         onClick={() => nav(-1)}>

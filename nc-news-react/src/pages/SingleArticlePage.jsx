@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import ArticleCard from "../components/ArticleCard";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/utils";
 import Spinner from "../components/Spinner";
@@ -9,7 +9,11 @@ import ErrorMessage from "../components/ErrorMessage";
 
 const SingleArticlePage = () => {
   const location = useLocation();
-  const article_id = location.pathname;
+  const nav = useNavigate();
+  const path = location.pathname;
+  let article_id;
+  path.includes('/topic') ? article_id = path.split('/')[path.split('/').length - 1] : article_id = location.pathname;
+
   const [article, setArticle] = useState(null);
   const [isError, setIsError] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -24,15 +28,20 @@ const SingleArticlePage = () => {
   }, []);
 
 
-  return (
-    <div className="main-container w-11/12 h-auto m-auto min-h-screen flex flex-col ">
-      <Navbar />
+  return (<>
+    <div className="main-container w-11/12 h-auto mb-6 mx-auto min-h-screen flex flex-col pt-4">
+      <button
+        className="cursor-pointer hover:font-semibold mr-auto mb-2"
+        onClick={() => nav(-1)}>
+        &larr;back
+      </button>
       {isError ? <ErrorMessage message={errorMsg} /> :
         (article ? <ArticleCard article={article} /> : <Spinner />)
       }
 
-      <Footer />
     </div>
+    <Footer />
+  </>
   );
 };
 export default SingleArticlePage;

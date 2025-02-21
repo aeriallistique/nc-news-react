@@ -21,7 +21,6 @@ const TopicArticlesPage = () => {
 
 
   return (<div className="w-11/12 mx-auto">
-    <Navbar />
     <ArticlesList topics={topics} articles={articles} isError={isError} setTopic={setTopic} />
   </div>
   );
