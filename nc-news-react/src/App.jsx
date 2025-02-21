@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import ArticlesPage from './pages/ArticlesPage';
 import SingleArticlePage from './pages/SingleArticlePage';
 import CommentsPage from './pages/CommentsPage';
