@@ -46,15 +46,18 @@ const PostComment = ({ articleID, setHasCommentPosted }) => {
           </svg>
         </button>
         <form action="submit" className={!isFormVisible ? "hidden" : "h-64 p-8 z-50 bg-white "}>
-
+          <label htmlFor="textarea" className="text-left block">Your Comment</label>
           <textarea
+            resize="none"
             value={textareaInput}
             onChange={(e) => { setTextareaInput(e.target.value); }}
             type="text"
-            col="10"
+            id="textarea"
+            name="textarea"
+
             rows={5}
             placeholder="Your Comment here..."
-            className="w-full border border-transparent  border-b-red-500 p-1 mb-1 focus:outline-none focus:ring-1 focus:ring-red-400"
+            className="w-full border border-transparent  border-b-red-500 p-1 mb-1 focus:outline-none focus:ring-1 focus:ring-red-400 resize-none"
           />
           <button
             disabled={textareaInput.length === 0 ? true : false}

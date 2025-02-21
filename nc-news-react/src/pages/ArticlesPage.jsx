@@ -42,7 +42,6 @@ const ArticlesPage = () => {
 
   return (
     <div className="main-container w-11/12 h-auto m-auto">
-      <Navbar />
       <select
         className="block ml-auto p-1 rounded border-0 cursor-pointer hover:bg-red-200"
         name="topic"
