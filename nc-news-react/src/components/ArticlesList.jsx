@@ -7,6 +7,8 @@ const ArticlesList = ({ topics, articles, isError, setTopic }) => {
   const nav = useNavigate();
 
   const handleTopicSelection = (e) => {
+    console.log(e.target);
+
     if (setTopic) { setTopic(e.target.value); }
     nav(`/topic/${e.target.value}`);
   };
@@ -14,14 +16,14 @@ const ArticlesList = ({ topics, articles, isError, setTopic }) => {
 
   return (<>
     <select
+      onChange={(e) => { handleTopicSelection(e); }}
       className='border border-red-300 bg-red-300 rounded-lg block mx-auto mb-2 p-2 cursor-pointer hover:bg-red-500 hover:text-white'>
       <option
-        value="choose">
+        value="">
         Please choose a Topic
       </option>
       {topics?.map(topic => <option
         key={topic.slug}
-        onClick={(e) => { handleTopicSelection(e); }}
         value={topic.slug}>
         {topic.slug}
       </option>
