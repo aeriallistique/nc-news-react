@@ -32,7 +32,7 @@ const PostComment = ({ articleID, setHasCommentPosted }) => {
 
       <div className={isFormVisible ? "text-center mt-4 " : ""} >
         <button
-          className="bg-red-100 p-0.5 cursor-pointer hover:bg-red-500 transition-all duration-150 hover:text-white rounded-md"
+          className="bg-red-200 p-0.5 pl-3 cursor-pointer hover:bg-red-500 transition-all duration-150 hover:text-white rounded-md"
           onClick={(e) => { handleFormvVisibility(e); }}
         >
           Add Comment

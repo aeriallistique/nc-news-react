@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getArticles, getTopics } from "../utils/utils";
 import ArticlesList from "../components/ArticlesList";
 import Navbar from "../components/Navbar";
+import Spinner from "../components/Spinner";
 
 const TopicArticlesPage = () => {
   const { slug } = useParams();
@@ -21,7 +22,8 @@ const TopicArticlesPage = () => {
 
 
   return (<div className="w-11/12 mx-auto">
-    <ArticlesList topics={topics} articles={articles} isError={isError} setTopic={setTopic} />
+    {articles ? <ArticlesList topics={topics} articles={articles} isError={isError} setTopic={setTopic} />
+      : <Spinner />}
   </div>
   );
 };

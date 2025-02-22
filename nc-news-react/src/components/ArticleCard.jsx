@@ -22,7 +22,7 @@ const ArticleCard = ({ article }) => {
 
   const handleVote = (e) => {
     e.preventDefault();
-    const voteCount = userVoted ? -1 : +1;
+    const voteCount = !userVoted ? +1 : -1;
     setUserVoted(curr => !curr);
     setVotes((currVotes) => currVotes + voteCount);
 
@@ -31,12 +31,12 @@ const ArticleCard = ({ article }) => {
         setIsError(true);
         setVotes(currVotes => currVotes - 1);
       });
-    setUserVoted(curr => !curr);
   };
+
 
   if (isError) { return <ErrorMessage message={'Your vote was not registered.'} />; }
   return (
-    <div key={`${article.article_id}${article.created_at}`} className="w-10/12 m-auto bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div key={`${article.article_id}${article.created_at}`} className="w-10/12 m-auto text-center bg-white border border-gray-200 rounded-lg  shadow-sm shadow-red-100 hover:shadow-xl hover:border-red-500 flex flex-col h-full">
       <Link to={`${article.article_id}`} key={article.article_id}>
         <img className="rounded-t-lg m-auto" src={article.article_img_url} alt={article.title} />
       </Link>
@@ -45,8 +45,8 @@ const ArticleCard = ({ article }) => {
           <h5 className="mb-4 text-xl font-bold tracking-tight text-gray-900">{article.title}</h5>
         </Link>
         {article.body ? <p className="my-6 px-4">{article.body}</p> : null}
-        <div className="container w-10/12 flex justify-between items-center m-auto">
-          <a href="#" className='inline-flex items-center text-red-600 text-xs'>{article.topic.toUpperCase() || 'General'}
+        <div className="container w-10/12 flex justify-between items-center m-auto flex-col sm:flex-row">
+          <a href={`/topic/${article.topic}`} className='inline-flex items-center text-red-600 text-xs'>{article.topic.toUpperCase() || 'General'}
           </a>
 
           <ATagSeeComments onClickFunc={handleSeeComments} text={`${article.comment_count}`} />
