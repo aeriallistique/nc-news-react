@@ -1,10 +1,14 @@
-import { useState } from "react";
-import { timeAgo } from "../utils/utils";
+import { useEffect, useState } from "react";
+import { timeAgo, patchCommentVote } from "../utils/utils";
 import { deleteComment } from "../utils/utils";
 import ErrorMessage from "./ErrorMessage";
 
 const CommentCard = ({ comment, userAvatar, loggedInUser, setHasCommentDeleted }) => {
   const [isError, setIsError] = useState(false);
+  const [commentVote, setCommentVote] = useState(comment.votes);
+  const [userVoted, setUserVoted] = useState(false);
+  const [hasVoteFailed, setHasVoteFailed] = useState(false);
+  let voteCount = userVoted ? -1 : +1;
 
   const showButton = () => {
     return (<button
@@ -24,8 +28,34 @@ const CommentCard = ({ comment, userAvatar, loggedInUser, setHasCommentDeleted }
       .catch(err => {
         setIsError(err.message);
       });
+  };
+
+  const originalAlert = window.alert;
+
+  const handleFailedVote = (message) => {
+    originalAlert(message);
+    setCommentVote(prev => prev - voteCount);
+    setHasVoteFailed(true);
+  };
+
+  const handleCommentVote = (e) => {
+    e.preventDefault();
+
+    const newVote = commentVote + voteCount;
+    setCommentVote(newVote);
+    const postObject = { inc_votes: voteCount, comment_id: comment.comment_id };
+
+    patchCommentVote(comment.comment_id, postObject)
+      .then(resp => {
+        setCommentVote(resp.votes);
+        setUserVoted(prev => !prev);
+      })
+      .catch(err => {
+        handleFailedVote('Vote was unsuccessful. Please try again.');
+      });
 
   };
+
 
 
   return (
@@ -46,10 +76,13 @@ const CommentCard = ({ comment, userAvatar, loggedInUser, setHasCommentDeleted }
       }
       <div className={loggedInUser.username === comment.author ? "flex justify-between" : "flex justify-end"}>
         {loggedInUser.username === comment.author ? showButton() : null}
-        <button className="cursor-pointer group ">
+        <button
+          onClick={(e) => { handleCommentVote(e); }}
+          className="cursor-pointer group ">
           <svg className='w-8 h-8 transition-all duration-200 transform group-hover:scale-110' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 21s-6.5-4.33-10-9.5C-1.5 6.67 2 2 6.5 2 9 2 12 5 12 5s3-3 5.5-3C22 2 25.5 6.67 22 11.5c-3.5 5.17-10 9.5-10 9.5z" fill="red" className="transition-colors duration-200 group-hover:fill-red-700" />
-            <text x="50%" y="60%" fontSize="10" fontFamily="Arial" fontWeight="bold" fill="white" textAnchor="middle" alignmentBaseline="middle">{comment.votes}</text>
+            const [commentVote, setCommentVote] = useState(comment.votes);
+            <text x="50%" y="60%" fontSize="10" fontFamily="Arial" fontWeight="bold" fill="white" textAnchor="middle" alignmentBaseline="middle">{commentVote}</text>
           </svg>
         </button>
       </div>

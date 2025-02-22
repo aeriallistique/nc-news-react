@@ -28,6 +28,10 @@ export const patchVotes = (path, patchObj) => {
   });
 };
 
+export const patchCommentVote = (comment_id, postObj) => {
+  return apiUrl.patch(`/comments/${comment_id}`, postObj).then(resp => resp.data.comment);
+};
+
 export const postComment = (path, postObj) => {
   return apiUrl.post(path, postObj);
 };
