@@ -2,6 +2,7 @@ import ArticlesList from "../components/ArticlesList";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
 import HangMessage from '../components/HangMessage';
+import AddNewArticle from "../components/AddNewArticle";
 import { useEffect, useState } from "react";
 import { getArticles, getTopics } from "../utils/utils";
 
@@ -67,11 +68,12 @@ const ArticlesPage = () => {
   return (
     <div className="main-container w-11/12 h-auto m-auto">
       <h1 className="text-center text-3xl">Welcome to NNC</h1>
+      <AddNewArticle />
       <select
         className="block ml-auto p-1 rounded border-0 cursor-pointer hover:bg-red-200"
         name="topic"
         id="topic"
-        onClick={(e) => { handleSortBy(e); }}>
+        onChange={(e) => { handleSortBy(e); }}>
         <option value="sort_by" default >Sort by:</option>
         <option value="created_at&order=DESC">Newest:</option>
         <option value="created_at&order=ASC">Oldest:</option>
